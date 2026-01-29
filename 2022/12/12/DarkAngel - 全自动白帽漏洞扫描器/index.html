@@ -239,7 +239,7 @@
 <p><font size="3"><span style="font-family: 微软雅黑, 'Microsoft YaHei';">微信通知 - 漏洞结果</span></font></p>
 <p><img src="/2022/12/12/DarkAngel%20-%20%E5%85%A8%E8%87%AA%E5%8A%A8%E7%99%BD%E5%B8%BD%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F%E5%99%A8/result_vx2.png"></p>
 <p><font size="3"><span style="font-family: 微软雅黑, 'Microsoft YaHei';">微信通知 - 扫描进程</span></font></p>
-<p> <img src="/2022/12/12/DarkAngel%20-%20%E5%85%A8%E8%87%AA%E5%8A%A8%E7%99%BD%E5%B8%BD%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F%E5%99%A8/result_vx1.png"></p>
+<p><img src="/2022/12/12/DarkAngel%20-%20%E5%85%A8%E8%87%AA%E5%8A%A8%E7%99%BD%E5%B8%BD%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F%E5%99%A8/result_vx1.png"></p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a><span style="color: #008000;">安装</span></h2><p><font size="3"><span style="font-family: 微软雅黑, 'Microsoft YaHei';">整体项目架构ES+Kibana+扫描器，所以安装需要三个部分</span></font></p>
 <p><font size="3"><span style="font-family: 微软雅黑, 'Microsoft YaHei';">ES镜像：</span></font></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">拉取ES镜像</span><br><span class="line">docker pull bywalkss/darkangel:es7.9.3</span><br><span class="line"></span><br><span class="line">部署ES镜像</span><br><span class="line">docker run -e ES_JAVA_OPTS=&quot;-Xms1024m -Xms1024m&quot; -d -p 9200:9200 -p 9300:9300 --name elasticsearch elasticsearch:7.9.3</span><br><span class="line"></span><br><span class="line">查看日志</span><br><span class="line">docker logs -f elasticsearch</span><br><span class="line"></span><br><span class="line">出现问题，执行命令</span><br><span class="line">sysctl -w vm.max_map_count=262144</span><br><span class="line"></span><br><span class="line">重启docker</span><br><span class="line">docker restart elasticsearch</span><br></pre></td></tr></table></figure>
@@ -258,7 +258,7 @@
 <p><img src="/2022/12/12/DarkAngel%20-%20%E5%85%A8%E8%87%AA%E5%8A%A8%E7%99%BD%E5%B8%BD%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F%E5%99%A8/scan-new-domain.jpg"></p>
 <h3 id="–add-domain-and-scan"><a href="#–add-domain-and-scan" class="headerlink" title=" –add-domain-and-scan"></a><span style="color: #008000;"> –add-domain-and-scan</span></h3><p><code>$ python3 darkangel.py --add-domain-and-scan program-file-name1 program-file-name2 --offer-bounty yes/no</code></p>
 <p><font size="3"><span style="font-family: 微软雅黑, 'Microsoft YaHei';">- 自定义添加扫描域名，并对这些域名进行漏洞扫描<br><font size="3"><span style="font-family: 微软雅黑, 'Microsoft YaHei';">- 文件名为厂商名称，文件内存放需扫描域名<br><font size="3"><span style="font-family: 微软雅黑, 'Microsoft YaHei';">- 需提供–offer-bounty参数，设置域名是否提供赏金</span></font></span></font></span></font></p>
-<p> <img src="/2022/12/12/DarkAngel%20-%20%E5%85%A8%E8%87%AA%E5%8A%A8%E7%99%BD%E5%B8%BD%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F%E5%99%A8/add_domain_and_scan1.jpg"></p>
+<p><img src="/2022/12/12/DarkAngel%20-%20%E5%85%A8%E8%87%AA%E5%8A%A8%E7%99%BD%E5%B8%BD%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F%E5%99%A8/add_domain_and_scan1.jpg"></p>
 <p><img src="/2022/12/12/DarkAngel%20-%20%E5%85%A8%E8%87%AA%E5%8A%A8%E7%99%BD%E5%B8%BD%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F%E5%99%A8/add_domain_and_scan2.jpg"></p>
 <p><font size="3"><span style="font-family: 微软雅黑, 'Microsoft YaHei';">扫描结束后，会把子域名结果存在在&#x2F;root&#x2F;darkangel&#x2F;vulscan&#x2F;results&#x2F;urls目录，按照是否提供赏金分别存放在，bounty_temp_urls_output.txt、nobounty_temp_urls_output.txt文件内</span></font></p>
 <h3 id="–nuclei-file-scan"><a href="#–nuclei-file-scan" class="headerlink" title="  –nuclei-file-scan"></a><span style="color: #008000;">  –nuclei-file-scan</span></h3><p><code>$ python3 darkangel.py --nuclei-file-scan</code></p>
@@ -275,7 +275,7 @@
 <p><font size="3"><span style="font-family: 微软雅黑, 'Microsoft YaHei';">执行命令，监听9.3.2版本更新</span></font></p>
 <p><img src="/2022/12/12/DarkAngel%20-%20%E5%85%A8%E8%87%AA%E5%8A%A8%E7%99%BD%E5%B8%BD%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F%E5%99%A8/nuclei_file_scan_by_new_temp2.jpg"></p>
 <p><font size="3"><span style="font-family: 微软雅黑, 'Microsoft YaHei';">企业微信通知</span></font></p>
-<p> <img src="/2022/12/12/DarkAngel%20-%20%E5%85%A8%E8%87%AA%E5%8A%A8%E7%99%BD%E5%B8%BD%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F%E5%99%A8/nuclei_file_scan_by_new_temp3.png"></p>
+<p><img src="/2022/12/12/DarkAngel%20-%20%E5%85%A8%E8%87%AA%E5%8A%A8%E7%99%BD%E5%B8%BD%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F%E5%99%A8/nuclei_file_scan_by_new_temp3.png"></p>
 <p><font size="3"><span style="font-family: 微软雅黑, 'Microsoft YaHei';">url列表存放位置</span></font></p>
 <p><img src="/2022/12/12/DarkAngel%20-%20%E5%85%A8%E8%87%AA%E5%8A%A8%E7%99%BD%E5%B8%BD%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F%E5%99%A8/nuclei-file-scan1.jpg"></p>
 <h3 id="–nuclei-file-scan-by-new-add-temp"><a href="#–nuclei-file-scan-by-new-add-temp" class="headerlink" title="  –nuclei-file-scan-by-new-add-temp"></a><span style="color: #008000;">  –nuclei-file-scan-by-new-add-temp</span></h3><p><code>$ python3 darkangel.py --nuclei-file-scan-by-new-add-temp nuclei-template-id</code></p>
@@ -296,9 +296,9 @@
 <p><font size="3"><span style="font-family: 微软雅黑, 'Microsoft YaHei';">前端 - 扫描结果</span></font></p>
 <p><img src="/2022/12/12/DarkAngel%20-%20%E5%85%A8%E8%87%AA%E5%8A%A8%E7%99%BD%E5%B8%BD%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F%E5%99%A8/result_kibana_vuln.jpg"></p>
 <p><font size="3"><span style="font-family: 微软雅黑, 'Microsoft YaHei';">微信通知 - 扫描进程</span></font></p>
-<p> <img src="/2022/12/12/DarkAngel%20-%20%E5%85%A8%E8%87%AA%E5%8A%A8%E7%99%BD%E5%B8%BD%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F%E5%99%A8/result_vx1.png"></p>
+<p><img src="/2022/12/12/DarkAngel%20-%20%E5%85%A8%E8%87%AA%E5%8A%A8%E7%99%BD%E5%B8%BD%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F%E5%99%A8/result_vx1.png"></p>
 <p><font size="3"><span style="font-family: 微软雅黑, 'Microsoft YaHei';">微信通知 - 漏洞结果</span></font></p>
-<p> <img src="/2022/12/12/DarkAngel%20-%20%E5%85%A8%E8%87%AA%E5%8A%A8%E7%99%BD%E5%B8%BD%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F%E5%99%A8/result_vx2.png"></p>
+<p><img src="/2022/12/12/DarkAngel%20-%20%E5%85%A8%E8%87%AA%E5%8A%A8%E7%99%BD%E5%B8%BD%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F%E5%99%A8/result_vx2.png"></p>
 <h2 id="反馈及贡献代码"><a href="#反馈及贡献代码" class="headerlink" title="反馈及贡献代码"></a><span style="color: #008000;">反馈及贡献代码</span></h2><p><font size="3"><span style="font-family: 微软雅黑, 'Microsoft YaHei';">首先感谢您花费时间来使DarkAngel变得更好用👍</span></font></p>
 <p><font size="3"><span style="font-family: 微软雅黑, 'Microsoft YaHei';">Bug反馈、建议以及漏洞模板提交，您的Github ID会在以下致谢列表披露：</span></font></p>
 <p><font size="3"><span style="font-family: 微软雅黑, 'Microsoft YaHei';"><a target="_blank" rel="noopener" href="https://github.com/Bywalks/DarkAngel/blob/main/THANKS.md">https://github.com/Bywalks/DarkAngel/blob/main/THANKS.md</a></span></font></p>
